@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonProps } from '../../interfaces';
+import { type ButtonProps } from '../../interfaces'; 
 
 const Button: React.FC<ButtonProps> = ({ size, shape, label }) => {
   const sizeClasses = {
@@ -24,4 +24,3 @@ const Button: React.FC<ButtonProps> = ({ size, shape, label }) => {
 };
 
 export default Button;
-
