@@ -18,6 +18,11 @@ const Header = () => {
                 <a className="hover:text-gray-300">About</a>
               </Link>
             </li>
+            <li>
+              <Link href="/posts">
+                <a className="hover:text-gray-300">Posts</a>
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>
@@ -26,4 +31,3 @@ const Header = () => {
 };
 
 export default Header;
-
