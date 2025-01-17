@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/layout/Header';
-import PostCard from '../components/common/PostCard';
+import Header from '@/components/layout/Header'; 
+import PostCard from '@/components/common/PostCard'; 
 
 const Posts = () => {
   const [posts, setPosts] = useState<{ title: string; body: string; userId: number }[]>([]);
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
