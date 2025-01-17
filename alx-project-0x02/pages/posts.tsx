@@ -1,24 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import Header from '@/components/layout/Header'; 
-import PostCard from '@/components/common/PostCard'; 
+import React from 'react';
+import Header from '@/components/layout/Header';
+import PostCard from '@/components/common/PostCard';
 
-const Posts = () => {
-  const [posts, setPosts] = useState<{ title: string; body: string; userId: number }[]>([]);
+interface Post {
+  title: string;
+  body: string;
+  userId: number;
+}
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-        const data = await response.json();
-        setPosts(data.slice(0, 10)); 
-      } catch (error) {
-        console.error('Failed to fetch posts:', error);
-      }
-    };
+interface PostsPageProps {
+  posts: Post[];
+}
 
-    fetchPosts();
-  }, []);
-
+const Posts: React.FC<PostsPageProps> = ({ posts }) => {
   return (
     <div className="bg-gray-100 min-h-screen">
       <Header />
@@ -37,6 +31,28 @@ const Posts = () => {
       </div>
     </div>
   );
+};
+
+export const getStaticProps = async () => {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    const data: Post[] = await response.json();
+
+    // Return the first 10 posts as props
+    return {
+      props: {
+        posts: data.slice(0, 10),
+      },
+    };
+  } catch (error) {
+    console.error('Failed to fetch posts:', error);
+
+    return {
+      props: {
+        posts: [],
+      },
+    };
+  }
 };
 
 export default Posts;
