@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Card from '../components/common/Card';
-import PostModal from '../components/common/PostModal';
+import Card from '@/components/common/Card';
+import PostModal from '@/components/common/PostModal';
 
 const Home = () => {
   const [posts, setPosts] = useState<{ title: string; content: string }[]>([]);
@@ -30,12 +30,10 @@ const Home = () => {
         Add New Post
       </button>
 
-      {/* Render the Card components for each post */}
       {posts.map((post, index) => (
         <Card key={index} title={post.title} content={post.content} />
       ))}
 
-      {/* Render the PostModal component */}
       <PostModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
