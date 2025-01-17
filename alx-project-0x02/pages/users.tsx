@@ -1,25 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import Header from '../components/layout/Header';
-import UserCard from '../components/common/UserCard';
-import { UserProps } from '../interfaces';
+import React from 'react';
+import Header from '@/components/layout/Header';
+import UserCard from '@/components/common/UserCard';
+import { UserProps } from '@/interfaces';
 
-const Users = () => {
-  const [users, setUsers] = useState<UserProps[]>([]);
+interface UsersPageProps {
+  users: UserProps[];
+}
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/users');
-        const data = await response.json();
-        setUsers(data);
-      } catch (error) {
-        console.error('Failed to fetch users:', error);
-      }
-    };
-
-    fetchUsers();
-  }, []);
-
+const Users: React.FC<UsersPageProps> = ({ users }) => {
   return (
     <div className="bg-gray-100 min-h-screen">
       <Header />
@@ -38,6 +26,27 @@ const Users = () => {
       </div>
     </div>
   );
+};
+
+export const getStaticProps = async () => {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/users');
+    const data: UserProps[] = await response.json();
+
+    return {
+      props: {
+        users: data,
+      },
+    };
+  } catch (error) {
+    console.error('Failed to fetch users:', error);
+
+    return {
+      props: {
+        users: [],
+      },
+    };
+  }
 };
 
 export default Users;
